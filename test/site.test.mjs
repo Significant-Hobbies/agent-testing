@@ -4,7 +4,7 @@ import test from 'node:test';
 
 const read = (name) => readFile(new URL(`../site/${name}`, import.meta.url), 'utf8');
 
-test('public map is agent-first, static and links to its public source', async () => {
+test('public map is agent-first and links to its public source', async () => {
   const html = await read('index.html');
 
   assert.match(html, /<main id="main"/);
@@ -18,8 +18,9 @@ test('public map is agent-first, static and links to its public source', async (
   assert.match(html, /No overall replacement has qualified yet/);
   assert.match(html, /Measured journey arms/);
   assert.match(html, /Accepted paid API spend/);
-  assert.doesNotMatch(html, /<script\b/i);
-  assert.doesNotMatch(html, /https?:\/\/[^"']+\.(?:js|css)/i);
+  assert.match(html, /data-project="agent-testing"/);
+  assert.match(html, /health\.sassmaker\.com\/tracker\.js/);
+  assert.match(html, /app-health-actions\.js/);
 });
 
 test('public map ships agent and missing-route surfaces', async () => {
@@ -42,8 +43,10 @@ test('public map ships agent and missing-route surfaces', async () => {
   assert.match(experimentsPage, /Measured journey matrix/);
   assert.match(experimentsPage, /26 arms/);
   assert.match(experimentsPage, /Other measured probes/);
-  assert.doesNotMatch(toolsPage, /<script\b/i);
-  assert.doesNotMatch(experimentsPage, /<script\b/i);
+  for (const page of [toolsPage, experimentsPage]) {
+    assert.match(page, /data-project="agent-testing"/);
+    assert.match(page, /health\.sassmaker\.com\/tracker\.js/);
+  }
 });
 
 test('catalogue has broad coverage without presenting research as benchmark evidence', async () => {

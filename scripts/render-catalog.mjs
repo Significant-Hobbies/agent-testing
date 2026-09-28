@@ -16,15 +16,26 @@ const formatDate = (value) => new Intl.DateTimeFormat('en-GB', {
 const evidenceLabel = (value) => value === 'researched-only' ? 'source reviewed' : value;
 const formatSeconds = (value) => value === null ? '—' : `${Number(value).toFixed(3)} s`;
 
-const layout = ({ title, description, body }) => `<!doctype html>
+const layout = ({ title, description, path, body }) => `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="${escapeHtml(description)}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Browser Agent Testing">
+    <meta property="og:title" content="${escapeHtml(title)}">
+    <meta property="og:description" content="${escapeHtml(description)}">
+    <meta property="og:url" content="https://browser-agents.sarthakagrawal.dev/${escapeHtml(path)}">
+    <meta property="og:image" content="https://browser-agents.sarthakagrawal.dev/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
     <meta name="theme-color" content="#f7f2e8">
     <title>${escapeHtml(title)}</title>
     <link rel="stylesheet" href="/styles.css">
+    <script src="/app-health-log.js" defer></script>
+    <script src="https://health.sassmaker.com/tracker.js" data-key="ahk_pub_0e2a7e80fa0fe9f96c97d060399e07d5480c3f1044d2b175ac1043da343ee009" data-project="app-import-0d08938369032c06e7ba377d45566e6847b64674fd7d2bde94beff01b3b62bb1" data-identity="session" defer></script>
+    <script src="/app-health-actions.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -35,6 +46,8 @@ const layout = ({ title, description, body }) => `<!doctype html>
       </nav>
       ${body}
     </main>
+    <script src="https://sassmaker.com/project-strip.js" data-project="agent-testing" defer></script>
+    <script src="https://sassmaker.com/ai-chat-footer.js" data-name="Browser Agent Testing" defer></script>
   </body>
 </html>
 `;
@@ -66,6 +79,7 @@ const toolSections = [...categories.entries()].map(([category, entries]) => `
 const toolsHtml = layout({
   title: 'Tools — Map of Browser Agent Testing',
   description: 'A dated, evidence-labelled catalogue of web, iOS, visual and agent testing tools.',
+  path: 'tools',
   body: `
       <header class="plain-header">
         <p class="eyebrow">Completed experiment · tool catalogue</p>
@@ -126,6 +140,7 @@ const versionRows = versions.pins.map((pin) => `<tr><td><strong>${escapeHtml(pin
 const experimentsHtml = layout({
   title: 'Experiments — Map of Browser Agent Testing',
   description: 'Vaultwealth agent-testing benchmark results, limitations, version pins and replay paths.',
+  path: 'experiments',
   body: `
       <header class="plain-header">
         <p class="eyebrow">Completed experiment · experiment record</p>
