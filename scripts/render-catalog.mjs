@@ -47,7 +47,7 @@ const layout = ({ title, description, path, body }) => `<!doctype html>
       ${body}
     </main>
     <script src="https://sassmaker.com/project-strip.js" data-project="agent-testing" defer></script>
-    <script src="https://sassmaker.com/ai-chat-footer.js" data-name="Browser Agent Testing" defer></script>
+    <script src="https://sassmaker.com/ai-chat-footer.js" data-name="Browser Agent Testing" data-capture="false" defer></script>
   </body>
 </html>
 `;
