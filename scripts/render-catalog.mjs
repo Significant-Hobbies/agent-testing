@@ -16,6 +16,17 @@ const formatDate = (value) => new Intl.DateTimeFormat('en-GB', {
 const evidenceLabel = (value) => value === 'researched-only' ? 'source reviewed' : value;
 const formatSeconds = (value) => value === null ? '—' : `${Number(value).toFixed(3)} s`;
 
+const preciseFooter = `    <fleet-footer-extension data-fleet-footer-project="agent-testing" product-name="Browser Agent Testing" theme="light" surface="app" font-base="/fonts/fleet-footer-precise-v1/" art-src="/footer-art/agent-testing.webp" art-alt="Browser Agent Testing: A compact experiment reading bench centers a retained evidence envelope and two plainly fictional viewport studies. One route folio supplies context; no extra control-room props or active app shell are invented." art-width="2171" art-height="724" art-position="50% 50%" art-credit="Original illustration for Browser Agent Testing">
+      <footer slot="navigation" data-fleet-footer-navigation>
+        <nav class="footer-routes" aria-label="Browser Agent Testing links">
+          <section><h2 data-fleet-footer-group-label>Explore the experiment</h2><a data-fleet-footer-primary href="/">The map</a><a href="/tools">Tools</a><a href="/experiments">Experiments</a><a href="/llms.txt">Agent summary</a></section>
+          <section><h2 data-fleet-footer-group-label>Retained evidence</h2><a href="/tools.json">tools.json</a><a href="/experiments.json">experiments.json</a><a href="/versions.json">versions.json</a><a href="https://github.com/Significant-Hobbies/agent-testing">Source repository</a></section>
+        </nav>
+        <p>Completed experiment. Retained for verified feedback, not automation theatre.</p>
+        <p>Last experiment: 20 September 2026. Catalogue reviewed: 20 September 2026.</p>
+      </footer>
+    </fleet-footer-extension>`;
+
 const layout = ({ title, description, path, body }) => `<!doctype html>
 <html lang="en">
   <head>
@@ -46,8 +57,9 @@ const layout = ({ title, description, path, body }) => `<!doctype html>
       </nav>
       ${body}
     </main>
-    <script src="https://sassmaker.com/project-strip.js" data-project="agent-testing" defer></script>
-    <script src="https://sassmaker.com/ai-chat-footer.js" data-name="Browser Agent Testing" data-capture="false" defer></script>
+    ${preciseFooter}
+    <script src="https://sassmaker.com/project-strip.js?v=precise-b0adaa67" data-project="agent-testing" data-host-only="true" data-theme="light" defer></script>
+    <script src="https://sassmaker.com/ai-chat-footer.js?v=precise-b0adaa67" data-name="Browser Agent Testing" data-project="agent-testing" data-host-only="true" data-theme="light" data-surface="app" data-capture="false" defer></script>
   </body>
 </html>
 `;
@@ -90,7 +102,7 @@ const toolsHtml = layout({
       </header>
       <section class="legend-block" aria-labelledby="evidence-key"><h2 id="evidence-key">Evidence key</h2><dl>${Object.entries(tools.evidence_states).map(([key, value]) => `<div><dt><span class="status status-${escapeHtml(key)}">${escapeHtml(evidenceLabel(key))}</span></dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl></section>
       ${toolSections}
-      <footer><p>Machine-readable catalogue: <a href="/tools.json">tools.json</a>. Experiment record: <a href="/experiments">/experiments</a>.</p></footer>`
+      <p class="fine-print">Machine-readable catalogue: <a href="/tools.json">tools.json</a>. Experiment record: <a href="/experiments">/experiments</a>.</p>`
 });
 
 const experimentSections = experiments.experiments.map((experiment, index) => `
@@ -164,7 +176,7 @@ open adapters/vaultwealth/runtime/README.md</code></pre><p class="fine-print">Th
       <div class="experiment-list">${experimentSections}</div>
       <section class="catalog-section" aria-labelledby="versions"><h2 id="versions">Exact observed versions</h2><p>${escapeHtml(versions.machine)}. ${escapeHtml(versions.browser)}. ${escapeHtml(versions.simulator)}.</p><div class="table-wrap" tabindex="0" role="region" aria-label="Exact observed version pins"><table class="catalog-table"><thead><tr><th>Tool or runtime</th><th>Exact observed pin</th><th>Recorded from</th></tr></thead><tbody>${versionRows}</tbody></table></div><p class="fine-print">These pins make the historical result reproducible. They are not recommendations to avoid newer versions.</p></section>
       <section class="plain-callout"><h2>What would justify rerunning</h2><p>Rerun when the application journey changes, a candidate has a material new release, the browser or simulator changes, or a five-run screen beats the current reliability and verified-feedback result. Do not rerun the whole catalogue merely because another tool exists.</p></section>
-      <footer><p>Machine-readable records: <a href="/experiments.json">experiments.json</a> and <a href="/versions.json">versions.json</a>.</p></footer>`
+      <p class="fine-print">Machine-readable records: <a href="/experiments.json">experiments.json</a> and <a href="/versions.json">versions.json</a>.</p>`
 });
 
 await Promise.all([

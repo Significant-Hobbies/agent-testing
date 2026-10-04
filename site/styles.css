@@ -158,6 +158,7 @@ footer p { margin-bottom: 4px; }
 .experiment { padding: 40px 0; border-bottom: 1px solid var(--line); }
 .experiment h2 { font-size: 1.8rem; }
 .experiment p, .experiment li { max-width: 900px; }
+.experiment code:not(pre code) { overflow-wrap: anywhere; }
 .experiment li { margin-bottom: 6px; }
 .coverage-evidence { margin-bottom: 54px; }
 .coverage-evidence div { min-height: 96px; }
@@ -194,3 +195,22 @@ footer p { margin-bottom: 4px; }
   .page { width: auto; padding: 0; }
   .actions .primary { padding: 0; color: black; background: none; }
 }
+
+/* Selected Precise footer preserves the field manual's warm paper identity. */
+fleet-footer-extension {
+  --fleet-footer-canvas: var(--paper);
+  --fleet-footer-lower: var(--paper);
+  --fleet-footer-border: var(--line);
+  --fleet-footer-max-width: 1180px;
+  --fleet-footer-app-signature-size: clamp(2.5rem, 6.5vw, 6rem);
+  --fleet-footer-app-mobile-signature-size: clamp(1.5rem, 6.2vw, 2.4rem);
+  color: var(--ink);
+}
+fleet-footer-extension > footer[slot="navigation"] { margin: 0; padding: 0; border: 0; font-size: 14px; }
+fleet-footer-extension > footer[slot="navigation"] .footer-routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+fleet-footer-extension > footer[slot="navigation"] .footer-routes section { display: grid; justify-items: start; gap: .375rem; min-width: 0; }
+fleet-footer-extension > footer[slot="navigation"] .footer-routes h2 { margin: 0; color: var(--muted); }
+fleet-footer-extension > footer[slot="navigation"] .footer-routes a { display: block; text-decoration: none; }
+fleet-footer-extension > footer[slot="navigation"] p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+fleet-footer-extension > footer[slot="navigation"] p:first-of-type { margin-top: 1.5rem; }
+@media print { fleet-footer-extension { display: none; } }
