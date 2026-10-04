@@ -39,6 +39,7 @@ const layout = ({ title, description, path, body }) => `<!doctype html>
     <meta property="og:description" content="${escapeHtml(description)}">
     <meta property="og:url" content="https://browser-agents.sarthakagrawal.dev/${escapeHtml(path)}">
     <meta property="og:image" content="https://browser-agents.sarthakagrawal.dev/og-image.png">
+    <link rel="canonical" href="https://browser-agents.sarthakagrawal.dev/${escapeHtml(path)}">
     <meta name="twitter:card" content="summary_large_image">
 
     <meta name="theme-color" content="#f7f2e8">
