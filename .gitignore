@@ -4,6 +4,7 @@ coverage/
 .env*
 *.log
 .wrangler/
+.fleet-local/
 
 # Benchmark runtime outputs and isolated third-party installs.
 artifacts/*

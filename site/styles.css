@@ -158,6 +158,7 @@ footer p { margin-bottom: 4px; }
 .experiment { padding: 40px 0; border-bottom: 1px solid var(--line); }
 .experiment h2 { font-size: 1.8rem; }
 .experiment p, .experiment li { max-width: 900px; }
+.experiment code:not(pre code) { overflow-wrap: anywhere; }
 .experiment li { margin-bottom: 6px; }
 .coverage-evidence { margin-bottom: 54px; }
 .coverage-evidence div { min-height: 96px; }
@@ -206,10 +207,10 @@ fleet-footer-extension {
   color: var(--ink);
 }
 fleet-footer-extension > footer[slot="navigation"] { margin: 0; padding: 0; border: 0; font-size: 14px; }
-fleet-footer-extension .footer-routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
-fleet-footer-extension .footer-routes section { min-width: 0; }
-fleet-footer-extension .footer-routes h2 { margin: 0 0 .5rem; color: var(--muted); }
-fleet-footer-extension .footer-routes a { display: flex; text-decoration: none; }
+fleet-footer-extension > footer[slot="navigation"] .footer-routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+fleet-footer-extension > footer[slot="navigation"] .footer-routes section { display: grid; justify-items: start; gap: .375rem; min-width: 0; }
+fleet-footer-extension > footer[slot="navigation"] .footer-routes h2 { margin: 0; color: var(--muted); }
+fleet-footer-extension > footer[slot="navigation"] .footer-routes a { display: block; text-decoration: none; }
 fleet-footer-extension > footer[slot="navigation"] p { color: var(--muted); font-size: 12px; line-height: 1.6; }
 fleet-footer-extension > footer[slot="navigation"] p:first-of-type { margin-top: 1.5rem; }
 @media print { fleet-footer-extension { display: none; } }
