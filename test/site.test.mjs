@@ -51,6 +51,31 @@ test('public map ships agent and missing-route surfaces', async () => {
   }
 });
 
+test('sitemap publishes canonical direct routes for generated pages', async () => {
+  const [sitemap, toolsPage, experimentsPage, indexPage] = await Promise.all([
+    read('sitemap.xml'),
+    read('tools.html'),
+    read('experiments.html'),
+    read('index.html'),
+  ]);
+  const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  const canonicalUrls = [
+    'https://browser-agents.sarthakagrawal.dev/',
+    'https://browser-agents.sarthakagrawal.dev/tools',
+    'https://browser-agents.sarthakagrawal.dev/experiments',
+  ];
+
+  assert.deepEqual(locations, canonicalUrls);
+  for (const [page, canonical] of [
+    [indexPage, canonicalUrls[0]],
+    [toolsPage, canonicalUrls[1]],
+    [experimentsPage, canonicalUrls[2]],
+  ]) {
+    assert.ok(page.includes(`<link rel="canonical" href="${canonical}">`));
+  }
+  assert.doesNotMatch(sitemap, /\.html<\/loc>/);
+});
+
 test('catalogue has broad coverage without presenting research as benchmark evidence', async () => {
   const [toolsRaw, experimentsRaw, versionsRaw, toolsPage] = await Promise.all([
     read('tools.json'),
