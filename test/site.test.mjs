@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 const read = (name) => readFile(new URL(`../site/${name}`, import.meta.url), 'utf8');
 
@@ -151,4 +153,29 @@ test('layout has responsive, focus and contrast accommodations', async () => {
   assert.match(css, /:focus-visible/);
   assert.match(css, /prefers-contrast: more/);
   assert.match(css, /overflow-x: auto/);
+});
+
+
+test('catalogue regeneration retains a full-width footer without reopening data capture', async () => {
+  const before = await Promise.all(['tools.json', 'experiments.json', 'versions.json', '_headers'].map(read));
+  const script = fileURLToPath(new URL('../scripts/render-catalog.mjs', import.meta.url));
+  const first = spawnSync(process.execPath, [script], { encoding: 'utf8', timeout: 10_000 });
+  assert.equal(first.status, 0, first.stderr);
+  const pages = await Promise.all(['index.html', 'tools.html', 'experiments.html', '404.html'].map(read));
+  for (const page of pages) {
+    const mainEnd = page.indexOf('</main>');
+    const hostStart = page.indexOf('<fleet-footer-extension');
+    assert.ok(hostStart > mainEnd && mainEnd > 0, 'the complete footer must sit outside the reading column');
+    assert.equal((page.match(/<fleet-footer-extension\b/g) ?? []).length, 1);
+    assert.match(page, /font-base="\/fonts\/fleet-footer-precise-v1\/"/);
+    assert.match(page, /art-src="\/footer-art\/agent-testing.webp"/);
+    assert.match(page, /data-capture="false"/);
+    for (const route of ['/', '/tools', '/experiments', '/llms.txt', '/tools.json', '/experiments.json', '/versions.json']) {
+      assert.ok(page.slice(hostStart).includes(`href="${route}"`), `retained native route ${route}`);
+    }
+  }
+  const second = spawnSync(process.execPath, [script], { encoding: 'utf8', timeout: 10_000 });
+  assert.equal(second.status, 0, second.stderr);
+  assert.deepEqual(await Promise.all(['index.html', 'tools.html', 'experiments.html', '404.html'].map(read)), pages);
+  assert.deepEqual(await Promise.all(['tools.json', 'experiments.json', 'versions.json', '_headers'].map(read)), before);
 });
