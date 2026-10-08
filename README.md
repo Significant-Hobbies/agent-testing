@@ -17,8 +17,8 @@ smoke fixture, and add another product adapter.
 
 The public, agent-first summary is served from
 [The Map of Browser Agent Testing](https://browser-agents.sarthakagrawal.dev)
-by Cloudflare Workers Static Assets. Use `npm run site:dev` for a local preview
-and `npm run deploy` for the configured `map-of-agent-testing` Worker.
+by Cloudflare Workers Static Assets. Use `pnpm run site:dev` for a local preview
+and `pnpm run deploy` for the configured `map-of-agent-testing` Worker.
 
 ## Commands
 

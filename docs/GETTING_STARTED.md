@@ -35,7 +35,7 @@ The core has no package dependencies. It needs Node.js 22 or newer.
 ```sh
 gh repo clone sarthakagrawal927/agent-testing
 cd agent-testing
-npm test
+pnpm test
 
 node bin/agent-testing.mjs validate \
   --manifest fixtures/good.manifest.json

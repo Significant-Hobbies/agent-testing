@@ -14,12 +14,19 @@
     "site:dev": "wrangler dev",
     "site:dry-run": "wrangler deploy --dry-run --outdir artifacts/wrangler-dry-run",
     "deploy": "wrangler deploy --tag $(git rev-parse HEAD)",
-    "check": "npm run site:render && npm run syntax && npm test && npm run validate:vaultwealth && npm run site:dry-run && git diff --check"
+    "check": "pnpm run site:render && pnpm run syntax && pnpm test && pnpm run validate:vaultwealth && pnpm run site:dry-run && git diff --check"
   },
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
     "wrangler": "4.135.0"
+  },
+  "packageManager": "pnpm@10.33.2",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "workerd"
+    ]
   }
 }
