@@ -21,7 +21,7 @@ Quantitative matrix: 26 measured web/iOS journey arms with 118 verified completi
 
 gh repo clone sarthakagrawal927/agent-testing
 cd agent-testing
-npm test
+pnpm test
 
 node bin/agent-testing.mjs validate --manifest fixtures/good.manifest.json
 node bin/agent-testing.mjs run --manifest fixtures/good.manifest.json --out artifacts/quickstart

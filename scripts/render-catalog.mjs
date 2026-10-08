@@ -167,10 +167,10 @@ const experimentsHtml = layout({
       <section class="catalog-section" aria-labelledby="probe-matrix"><h2 id="probe-matrix">Other measured probes <small>${experiments.probe_comparisons.length}</small></h2><p>These numbers are useful, but they are not comparable end-to-end application journeys.</p><div class="table-wrap" tabindex="0" role="region" aria-label="Measured readiness diagnostic and local model probes"><table class="catalog-table result-table"><thead><tr><th>Probe</th><th>Median</th><th>Observed p95</th><th>Passes</th><th>Numeric detail</th><th>Boundary</th></tr></thead><tbody>${probeRows}</tbody></table></div></section>
       <section aria-labelledby="run-it"><h2 id="run-it">Clone and replay</h2><pre><code>gh repo clone sarthakagrawal927/agent-testing
 cd agent-testing
-npm test
+pnpm test
 
 # Validate the real-product adapter
-npm run validate:vaultwealth
+pnpm run validate:vaultwealth
 
 # Read exact setup and replay commands
 open adapters/vaultwealth/runtime/README.md</code></pre><p class="fine-print">The source repository is public. Product adapters must still use local or disposable seeded targets only.</p></section>
